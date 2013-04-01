@@ -23,14 +23,14 @@ There are 2 settings.  One is for the container of your posts (usually post), an
 permalinks (usually entry-title).  Classes ONLY - and do not prefix them with . (incorrect: .post - correct: post).
 
 == Changelog ==
-=1.3=
-*	Fixed deactivation deletion.
+= 1.3 =
+* Fixed deactivation deletion.
 
-=1.2=
-*  Added the ability to customize the keys being used (a-z,1-0,arrow keys)
+= 1.2 =
+* Added the ability to customize the keys being used (a-z,1-0,arrow keys)
 
-=1.1=
-*  Added z and x (z = older posts, x = newer posts)
+= 1.1 =
+* Added z and x (z = older posts, x = newer posts)
 
 = 1.0 =
 * Initial release.
