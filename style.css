@@ -1,0 +1,39 @@
+/********************************************************************/
+/*	Jump Around Styles for the options page 
+	Version: 1	                                                  */
+/******************************************************************/
+#ja {
+	width: 450px; 
+	margin: 10px 5px 10px 5px;
+	font-size: 15px;
+	float: left;
+}
+#ja p {
+	width: 400px;
+	margin: 5px 5px 5px 5px;
+	padding: 5px; 
+	
+}
+
+#ja .keys {
+	display: block; 
+	clear: both; 
+	margin: 10px 0 10px 0;
+	padding: 5px;
+}
+#ja .left {
+	border: 1px solid #ddd;
+	float: left; 
+	margin-right: 10px;
+}
+#ja .right {
+	float: left;
+	
+}
+
+#ja input[type="text"] {
+	float: right;
+}
+#ja input[type="text"]:hover {
+	cursor: pointer;
+}	

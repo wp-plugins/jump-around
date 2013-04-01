@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Jump Around
 	Plugin URI: http://papercaves.com/wordpress-plugins/
-	Description: Navigate posts by pressing the A or D keys, and press S to open the post.
+	Description: Navigate posts by pressing keys on the keyboard.
 	Version: 1.3
 	Author: Matthew Trevino
 	Author URI: http://papercaves.com
@@ -37,8 +37,6 @@
 		
 */
 
-
-//	Last update March 25th, 2013 - 12:45 PM
 
 // JA-000
 // Check for (and enqueue if not present) jQuery
@@ -127,6 +125,15 @@
 
 // JA-002
 // The form for the options page.	
+
+	if (is_admin() ) {
+	
+		wp_register_style( 'JAStylesheet', plugins_url('style.css', __FILE__), '1' );
+		wp_enqueue_style( 'JAStylesheet' );
+		
+	}
+
+
 	function print_JA_form() {
 	
 		$default_jump_around_0 = get_option("jump_around_0");
@@ -415,9 +422,17 @@
 // Display the information on the page that was created.
 	function JA_page_content() { 
 		echo "	
+				<div id=\"ja\">
 				<h2>Jump Around</h2>
-				<p>Navigate posts by pressing the A or D keys, and press S to open the post.<br />
-				default: a = previous, d = next, s = open currently selected post, z = older posts, x = newer posts.</p>
+				<p>Navigate posts by pressing keys on the keyboard.<br />
+				<p>
+				Default keys:<br />
+				<span class=\"keys\"><span class=\"left\">a</span><span class=\"right\">previous</span></span>
+				<span class=\"keys\"><span class=\"left\">d</span><span class=\"right\">next</span></span>
+				<span class=\"keys\"><span class=\"left\">s</span><span class=\"right\">open currently selected post</span></span>
+				<span class=\"keys\"><span class=\"left\">z</span><span class=\"right\">older posts</span></span>
+				<span class=\"keys\"><span class=\"left\">x</span><span class=\"right\">newer posts</span></span>
+				</p>
 				
 				<blockquote>
 					<p>Adds a class of .current to the currently selected item (which you can style in .css).</p>
@@ -430,15 +445,11 @@
 				echo "</blockquote>
 				
 				<p>
-				// <a href=\"http://stackoverflow.com/questions/1939041/change-hash-without-reload-in-jquery\">Thanks to jitter on stackoverflow for the window.location.hash tidbit</a><br />
-				// <a href=\"http://stackoverflow.com/questions/13694277/scroll-to-next-div-using-arrow-keys\">Thanks to mVChr for the scroll-to (via keys)</a><br /><br />
-				
-				This plugin is a combination of both of these techniques to not only navigate between posts in a loop, but to also 
-				save the hash location so that the user can continue navigating from the last post they were at.
-				
+				Thanks to <a href=\"http://stackoverflow.com/questions/1939041/change-hash-without-reload-in-jquery\">jitter</a> &amp; <a href=\"http://stackoverflow.com/questions/13694277/scroll-to-next-div-using-arrow-keys\">mVChr</a><br /><br />
 				</p>
 				
-				</blockquote>";
+				</blockquote>
+				</div>";
 	}
 	
 	

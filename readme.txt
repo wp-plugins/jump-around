@@ -1,6 +1,6 @@
 === Jump Around ===
 Contributors: Matthew Trevino
-Tags: a,s,d,z,x,customize,navigating,navigation by key,keyboard,navi,quick,easy,useful
+Tags: a,s,d,z,x,cusotmize,navigating,navigation by key,keyboard,navi,quick,easy,useful
 Requires at least: 3.3
 Tested up to: 3.5.1
 Stable tag: 1.3
@@ -24,7 +24,7 @@ permalinks (usually entry-title).  Classes ONLY - and do not prefix them with . 
 
 == Changelog ==
 = 1.3 =
-* Fixed deactivation deletion.
+* Admin area styled.
 
 = 1.2 =
 * Added the ability to customize the keys being used (a-z,1-0,arrow keys)
