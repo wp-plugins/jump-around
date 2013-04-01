@@ -3,7 +3,7 @@
 	Plugin Name: Jump Around
 	Plugin URI: http://papercaves.com/wordpress-plugins/
 	Description: Navigate posts by pressing keys on the keyboard.
-	Version: 1.3
+	Version: 1.4
 	Author: Matthew Trevino
 	Author URI: http://papercaves.com
 	License: A "Slug" license name e.g. GPL2
