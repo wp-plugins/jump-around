@@ -3,7 +3,7 @@ Contributors: Matthew Trevino
 Tags: a,s,d,z,x,cusotmize,navigating,navigation by key,keyboard,navi,quick,easy,useful
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 
 Navigate posts by pressing the a,s,d,z, or x.  (Keys are customizable in options).
 
