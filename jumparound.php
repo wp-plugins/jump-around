@@ -3,7 +3,7 @@
 	Plugin Name: Jump Around
 	Plugin URI: http://papercaves.com/wordpress-plugins/
 	Description: Navigate posts by pressing keys on the keyboard.
-	Version: 1.4
+	Version: 1.4.1
 	Author: Matthew Trevino
 	Author URI: http://papercaves.com
 	License: A "Slug" license name e.g. GPL2
@@ -476,7 +476,7 @@ if(hash != false && hash != 'undefined') {
 	\$(document).keydown(function(e){
     switch(e.which) {
         case ",$JA_4_sc,":
-            var \$current = \$('.",$JA_0_sc,".current'),
+            var \$current = \$('",$JA_0_sc,".current'),
             \$prev_embed = \$current.prev();
             \$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
@@ -486,7 +486,7 @@ if(hash != false && hash != 'undefined') {
             return;
         break;
 		case ",$JA_6_sc,": 
-            var \$current = \$('.",$JA_0_sc,".current'),
+            var \$current = \$('",$JA_0_sc,".current'),
             \$next_embed = \$current.next('.",$JA_0_sc,"');
             \$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
@@ -496,7 +496,7 @@ if(hash != false && hash != 'undefined') {
             return;
         break;
 		case ",$JA_5_sc,": 
-                if(jQuery('.current .",$JA_1_sc," a').attr('href'))
+                if(jQuery('.current ",$JA_1_sc,"').attr('href'))
                 document.location.href=jQuery('.current .",$JA_1_sc," a').attr('href');
 				e.preventDefault();
 				return;
@@ -510,7 +510,7 @@ if(hash != false && hash != 'undefined') {
 \$(document).keydown(function(e){
     switch(e.which) {
         case ",$JA_4_sc,": 
-            var \$current = \$('.",$JA_0_sc,".current'),
+            var \$current = \$('",$JA_0_sc,".current'),
             \$prev_embed = \$current.prev();
             \$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
@@ -520,7 +520,7 @@ if(hash != false && hash != 'undefined') {
             return;
         break;
 		case ",$JA_6_sc,": 
-            var \$current = \$('.",$JA_0_sc,".current'),
+            var \$current = \$('",$JA_0_sc,".current'),
             \$next_embed = \$current.next('.",$JA_0_sc,"');
             \$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
@@ -530,7 +530,7 @@ if(hash != false && hash != 'undefined') {
             return;
         break;
 		case ",$JA_5_sc,": 
-                if(jQuery('.current .",$JA_1_sc," a').attr('href'))
+                if(jQuery('.current ",$JA_1_sc,"').attr('href'))
                 document.location.href=jQuery('.current .",$JA_1_sc," a').attr('href');
 				e.preventDefault();
 				return;
@@ -540,7 +540,7 @@ if(hash != false && hash != 'undefined') {
 });
 }
 
-if (\$('.",$JA_2_sc," a').is('*')) {
+if (\$('",$JA_2_sc,"').is('*')) {
 \$(document).keydown(function(e){
     switch(e.which) {
         case ",$JA_7_sc,": 
@@ -553,11 +553,11 @@ if (\$('.",$JA_2_sc," a').is('*')) {
 });
 }
 
-if (\$('.",$JA_3_sc," a').is('*')) {
+if (\$('",$JA_3_sc,"').is('*')) {
 \$(document).keydown(function(e){
     switch(e.which) {
 		case ",$JA_8_sc,": 
-			document.location.href=jQuery('.",$JA_3_sc," a').attr('href');
+			document.location.href=jQuery('",$JA_3_sc,"').attr('href');
 			e.preventDefault();
             return;
 			break;
