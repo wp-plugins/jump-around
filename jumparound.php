@@ -53,6 +53,14 @@
 		add_action( $jump_around_options, 'jump_around_style' );
 	}
 	add_action('wp_footer', 'Jump_Around_footer_script');
+	// Add settings link on plugin page
+	function jump_around_settings_link($links) { 
+		$settings_link = '<a href="options-general.php?page=JA">Settings</a>'; 
+	  array_unshift($links, $settings_link); 
+	  return $links; 
+	}
+	$jump_around_plugin = plugin_basename(__FILE__); 
+	add_filter("plugin_action_links_$jump_around_plugin", 'jump_around_settings_link' );
 
 
 
