@@ -3,7 +3,7 @@ Contributors: Matthew Trevino
 Tags: a,s,d,z,x,cusotmize,navigating,navigation by key,keyboard,navi,quick,easy,useful
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.4.2
+Stable tag: 2
 
 Navigate posts by pressing the a,s,d,z, or x.  (Keys are customizable in options).
 
@@ -22,6 +22,10 @@ to the post in line in the loop).  Or, customize the keys to do what you want th
 (Check changelog, entry 1.4.1 for an example of how to set the post containers properly)
 
 == Changelog ==
+= 2 =
+* Cleaned up code
+* Options CSS should only load on the Jump Around options page.
+
 = 1.4.1 =
 * Greater control over CSS selectors
 * If your post container is .post and your link is wrapped in an h2 with a class of entry-title, and your previous and next post links are called "previouspostslink" and "nextpostslink" (respectively), your settings for div selectors will look like this:

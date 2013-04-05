@@ -3,7 +3,7 @@
 	Plugin Name: Jump Around
 	Plugin URI: http://papercaves.com/wordpress-plugins/
 	Description: Navigate posts by pressing keys on the keyboard.
-	Version: 1.4.2
+	Version: 2
 	Author: Matthew Trevino
 	Author URI: http://papercaves.com
 	License: A "Slug" license name e.g. GPL2
@@ -25,6 +25,7 @@
 
 
 	Contents -
+		JA-+++ Initial plugin options, actions, and whatnot
 		JA-000 Check for (and enqueue if not present) jQuery
 		JA-001 Options settings validation
 		JA-002 The form for the options page.	
@@ -36,6 +37,23 @@
 	// Thanks to mVChr for the scroll-to (via keys) (http://stackoverflow.com/questions/13694277/scroll-to-next-div-using-arrow-keys)
 		
 */
+
+
+
+
+//  JA-+++ 
+//  Initial plugin options, actions, and whatnot
+	add_action("admin_menu", "jump_around_add_options_page");
+	function jump_around_style() {
+		wp_register_style( 'JAStylesheet', plugins_url('style.css', __FILE__), '1' );
+		wp_enqueue_style( 'JAStylesheet' );
+	}
+	function jump_around_add_options_page() {
+		$jump_around_options = add_options_page("Jump Around", "Jump Around", "manage_options", "JA", "jump_around_page_content");
+		add_action( $jump_around_options, 'jump_around_style' );
+	}
+	add_action('wp_footer', 'Jump_Around_footer_script');
+
 
 
 // JA-000
@@ -125,16 +143,7 @@
 
 // JA-002
 // The form for the options page.	
-
-	if (is_admin() ) {
-	
-		wp_register_style( 'JAStylesheet', plugins_url('style.css', __FILE__), '1' );
-		wp_enqueue_style( 'JAStylesheet' );
-		
-	}
-
-
-	function print_JA_form() {
+	function print_jump_around_form() {
 	
 		$default_jump_around_0 = get_option("jump_around_0");
 		$default_jump_around_1 = get_option("jump_around_1");
@@ -413,14 +422,8 @@
 	
 // JA-003
 // The options page
-	add_action("admin_menu", "JA_add_options_page");
-	
-	function JA_add_options_page() {
-		add_options_page("JA", "Jump Around", "manage_options", "JA", "JA_page_content");
-	}
-
 // Display the information on the page that was created.
-	function JA_page_content() { 
+	function jump_around_page_content() { 
 		echo "	
 				<div id=\"ja\">
 				<h2>Jump Around</h2>
@@ -441,7 +444,7 @@
 				<blockquote>
 					";
 					if ($_REQUEST["submit"]) { update_JA(); }
-					print_JA_form();
+					print_jump_around_form();
 				echo "</blockquote>
 				
 				<p>
@@ -457,16 +460,16 @@
 // Output appropriate script in footer
 
 function Jump_Around_footer_script(){
-if (is_archive() || is_home()) { 
-$JA_0_sc = ( get_option("jump_around_0") );
-$JA_1_sc = ( get_option("jump_around_1") );
-$JA_2_sc = ( get_option("jump_around_2") );
-$JA_3_sc = ( get_option("jump_around_3") );
-$JA_4_sc = ( get_option("jump_around_4") );
-$JA_5_sc = ( get_option("jump_around_5") );
-$JA_6_sc = ( get_option("jump_around_6") );
-$JA_7_sc = ( get_option("jump_around_7") );
-$JA_8_sc = ( get_option("jump_around_8") );
+if (is_archive() || is_home() || is_search()) { 
+$jump_around_0_sc = ( get_option("jump_around_0") );
+$jump_around_1_sc = ( get_option("jump_around_1") );
+$jump_around_2_sc = ( get_option("jump_around_2") );
+$jump_around_3_sc = ( get_option("jump_around_3") );
+$jump_around_4_sc = ( get_option("jump_around_4") );
+$jump_around_5_sc = ( get_option("jump_around_5") );
+$jump_around_6_sc = ( get_option("jump_around_6") );
+$jump_around_7_sc = ( get_option("jump_around_7") );
+$jump_around_8_sc = ( get_option("jump_around_8") );
 echo "
 <script type=\"text/javascript\">
 jQuery( document ).ready( function($) {
@@ -475,29 +478,29 @@ if(hash != false && hash != 'undefined') {
     \$('#'+hash+'').addClass('current');
 	\$(document).keydown(function(e){
     switch(e.which) {
-        case ",$JA_4_sc,":
-            var \$current = \$('",$JA_0_sc,".current'),
+        case ",$jump_around_4_sc,":
+            var \$current = \$('",$jump_around_0_sc,".current'),
             \$prev_embed = \$current.prev();
             \$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
             \$prev_embed.addClass('current');
-			window.location.hash = \$('",$JA_0_sc,".current').attr('id');
+			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
 			e.preventDefault();
             return;
         break;
-		case ",$JA_6_sc,": 
-            var \$current = \$('",$JA_0_sc,".current'),
-            \$next_embed = \$current.next('",$JA_0_sc,"');
+		case ",$jump_around_6_sc,": 
+            var \$current = \$('",$jump_around_0_sc,".current'),
+            \$next_embed = \$current.next('",$jump_around_0_sc,"');
             \$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
             \$next_embed.addClass('current');
-			window.location.hash = \$('",$JA_0_sc,".current').attr('id');
+			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
 			e.preventDefault();
             return;
         break;
-		case ",$JA_5_sc,": 
-                if(jQuery('.current ",$JA_1_sc,"').attr('href'))
-                document.location.href=jQuery('.current .",$JA_1_sc," a').attr('href');
+		case ",$jump_around_5_sc,": 
+                if(jQuery('.current ",$jump_around_1_sc,"').attr('href'))
+                document.location.href=jQuery('.current ",$jump_around_1_sc,"').attr('href');
 				e.preventDefault();
 				return;
 				break;
@@ -506,32 +509,32 @@ if(hash != false && hash != 'undefined') {
     
 });
 }else{
-\$('",$JA_0_sc,":eq(0)').addClass('current');
+\$('",$jump_around_0_sc,":eq(0)').addClass('current');
 \$(document).keydown(function(e){
     switch(e.which) {
-        case ",$JA_4_sc,": 
-            var \$current = \$('",$JA_0_sc,".current'),
+        case ",$jump_around_4_sc,": 
+            var \$current = \$('",$jump_around_0_sc,".current'),
             \$prev_embed = \$current.prev();
             \$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
             \$prev_embed.addClass('current');
-			window.location.hash = \$('",$JA_0_sc,".current').attr('id');
+			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
 			e.preventDefault();
             return;
         break;
-		case ",$JA_6_sc,": 
-            var \$current = \$('",$JA_0_sc,".current'),
-            \$next_embed = \$current.next('",$JA_0_sc,"');
+		case ",$jump_around_6_sc,": 
+            var \$current = \$('",$jump_around_0_sc,".current'),
+            \$next_embed = \$current.next('",$jump_around_0_sc,"');
             \$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
             \$current.removeClass('current');
             \$next_embed.addClass('current');
-			window.location.hash = \$('",$JA_0_sc,".current').attr('id');
+			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
 			e.preventDefault();
             return;
         break;
-		case ",$JA_5_sc,": 
-                if(jQuery('.current ",$JA_1_sc,"').attr('href'))
-                document.location.href=jQuery('.current .",$JA_1_sc," a').attr('href');
+		case ",$jump_around_5_sc,": 
+                if(jQuery('.current ",$jump_around_1_sc,"').attr('href'))
+                document.location.href=jQuery('.current ",$jump_around_1_sc,"').attr('href');
 				e.preventDefault();
 				return;
 				break;
@@ -540,11 +543,11 @@ if(hash != false && hash != 'undefined') {
 });
 }
 
-if (\$('",$JA_2_sc,"').is('*')) {
+if (\$('",$jump_around_2_sc,"').is('*')) {
 \$(document).keydown(function(e){
     switch(e.which) {
-        case ",$JA_7_sc,": 
-			document.location.href=jQuery('",$JA_2_sc,"').attr('href');
+        case ",$jump_around_7_sc,": 
+			document.location.href=jQuery('",$jump_around_2_sc,"').attr('href');
 			e.preventDefault();
             return;
 			break;
@@ -553,11 +556,11 @@ if (\$('",$JA_2_sc,"').is('*')) {
 });
 }
 
-if (\$('",$JA_3_sc,"').is('*')) {
+if (\$('",$jump_around_3_sc,"').is('*')) {
 \$(document).keydown(function(e){
     switch(e.which) {
-		case ",$JA_8_sc,": 
-			document.location.href=jQuery('",$JA_3_sc,"').attr('href');
+		case ",$jump_around_8_sc,": 
+			document.location.href=jQuery('",$jump_around_3_sc,"').attr('href');
 			e.preventDefault();
             return;
 			break;
@@ -571,7 +574,4 @@ if (\$('",$JA_3_sc,"').is('*')) {
 ";
 }
 } 
-
-add_action('wp_footer', 'Jump_Around_footer_script');
-	
 ?>
