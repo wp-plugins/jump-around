@@ -3,7 +3,7 @@ Contributors: Matthew Trevino
 Tags: a,s,d,z,x,cusotmize,navigating,navigation by key,keyboard,navi,quick,easy,useful
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 2
+Stable tag: 2.1
 
 Navigate posts by pressing the a,s,d,z, or x.  (Keys are customizable in options).
 
@@ -23,6 +23,7 @@ to the post in line in the loop).  Or, customize the keys to do what you want th
 
 == Changelog ==
 = 2 =
+* 2.1 - style.css fixed
 * Cleaned up code
 * Options CSS should only load on the Jump Around options page.
 

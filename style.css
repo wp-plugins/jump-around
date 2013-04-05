@@ -8,32 +8,41 @@
 	font-size: 15px;
 	float: left;
 }
-#ja p {
+p {
 	width: 400px;
 	margin: 5px 5px 5px 5px;
 	padding: 5px; 
 	
 }
 
-#ja .keys {
+.keys {
 	display: block; 
 	clear: both; 
 	margin: 10px 0 10px 0;
 	padding: 5px;
 }
-#ja .left {
+.left {
 	border: 1px solid #ddd;
 	float: left; 
 	margin-right: 10px;
 }
-#ja .right {
+.right {
 	float: left;
 	
 }
 
-#ja input[type="text"] {
+label { 
+	width: 100%; 
+	clear: both; 
+	display: block;
+}
+
+select {
 	float: right;
 }
-#ja input[type="text"]:hover {
+input[type="text"] {
+	float: right;
+}
+input[type="text"]:hover {
 	cursor: pointer;
 }	
