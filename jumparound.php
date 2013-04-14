@@ -1,48 +1,38 @@
 <?php
 /*
-	Plugin Name: Jump Around
-	Plugin URI: http://papercaves.com/wordpress-plugins/
-	Description: Navigate posts by pressing keys on the keyboard.
-	Version: 2.1
-	Author: Matthew Trevino
-	Author URI: http://papercaves.com
-	License: A "Slug" license name e.g. GPL2
+Plugin Name: Jump Around
+Plugin URI: http://papercaves.com/wordpress-plugins/
+Description: Navigate posts by pressing keys on the keyboard.
+Version: 2.2
+Author: Matthew Trevino
+Author URI: http://papercaves.com
+License: A "Slug" license name e.g. GPL2
 
-	Copyright 2013  Matthew Trevino  (boyevul@gmail.com)
+Copyright 2013  Matthew Trevino  (boyevul@gmail.com)
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
-    published by the Free Software Foundation.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as 
+published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-
-	Contents -
-		JA-+++ Initial plugin options, actions, and whatnot
-		JA-000 Check for (and enqueue if not present) jQuery
-		JA-001 Options settings validation
-		JA-002 The form for the options page.	
-		JA-003 The options page.
-		JA-004 Output appropriate script in footer.
-
-
-	// Thanks to jitter on stackoverflow for the window.location.hash tidbit (http://stackoverflow.com/questions/1939041/change-hash-without-reload-in-jquery)
-	// Thanks to mVChr for the scroll-to (via keys) (http://stackoverflow.com/questions/13694277/scroll-to-next-div-using-arrow-keys)
-		
+// Thanks to jitter on stackoverflow for the window.location.hash tidbit (http://stackoverflow.com/questions/1939041/change-hash-without-reload-in-jquery)
+// Thanks to mVChr for the scroll-to (via keys) (http://stackoverflow.com/questions/13694277/scroll-to-next-div-using-arrow-keys)
 */
+	if (!is_admin()) add_action("wp_enqueue_scripts", "Jump_Around_jquery_enqueue", 11);
+	function Jump_Around_jquery_enqueue() {
+		wp_deregister_script('jquery');
+		wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", false, null);
+		wp_enqueue_script('jquery');
+	}
 
-
-
-
-//  JA-+++ 
-//  Initial plugin options, actions, and whatnot
 	add_action("admin_menu", "jump_around_add_options_page");
 	function jump_around_style() {
 		wp_register_style( 'JAStylesheet', plugins_url('style.css', __FILE__), '1' );
@@ -53,7 +43,7 @@
 		add_action( $jump_around_options, 'jump_around_style' );
 	}
 	add_action('wp_footer', 'Jump_Around_footer_script');
-	// Add settings link on plugin page
+
 	function jump_around_settings_link($links) { 
 		$settings_link = '<a href="options-general.php?page=JA">Settings</a>'; 
 	  array_unshift($links, $settings_link); 
@@ -62,22 +52,10 @@
 	$jump_around_plugin = plugin_basename(__FILE__); 
 	add_filter("plugin_action_links_$jump_around_plugin", 'jump_around_settings_link' );
 
-
-
-// JA-000
-// Check for (and enqueue if not present) jQuery
-	if(wp_script_is('jquery')) {
-	
-	} else {
-		wp_enqueue_script('jquery');
-	}
-
 	register_activation_hook( __FILE__, "jump_around_install" );
 	register_deactivation_hook( __FILE__, "jump_around_uninstall" );
 
 	function jump_around_install() {
-		
-		// core settings
 		add_option("jump_around_0","post","Post wrap");
 		add_option("jump_around_1","entry-title","Link wrap");
 		add_option("jump_around_2","previous-link","Previous link");
@@ -90,9 +68,6 @@
 		add_option("jump_around_delete_on_deactivate","no","Delete on deactivate?");
 	}
 
-	
-// Are we deleting information from the database?
-// Check to make sure that the option to delete is set to "yes" before we delete the information.	
 	function jump_around_uninstall() {
 		if ( get_option("jump_around_delete_on_deactivate") === "yes") {
 			delete_option("jump_around_0");
@@ -109,9 +84,15 @@
 		
 	}
 
-// JA-001
-// Options settings validation
-// Take the values passed from the options page and insert them into the database for saving.
+
+
+
+
+
+
+
+
+
 	function update_JA() {
 		$jump_around_was_updated = false;
 		
@@ -143,14 +124,20 @@
 			
 		}
 		
-		// Options were updated - tell the user about it.
 		if ($jump_around_was_updated) { 
 			echo "<p>Options saved.</p>"; 
 		}
 	}
 
-// JA-002
-// The form for the options page.	
+
+
+
+
+
+
+
+
+
 	function print_jump_around_form() {
 	
 		$default_jump_around_0 = get_option("jump_around_0");
@@ -412,25 +399,30 @@
 		<option value=\"40\"";if ($default_jump_around_8 == "40") { echo " selected=\"selected\""; } echo ">down arrow</option>
 		</select>
 		</label>
-		<br /><hr />
+		<hr />
 		
 		<label for=\"jump_around_delete_on_deactivate\">Delete options on deactivation?:
 		<select name=\"jump_around_delete_on_deactivate\">
 			<option value=\"yes\""; if ($default_jump_around_delete_on_deactivate == "yes") { echo " selected=\"selected\""; } echo ">Yes</option>
 			<option value=\"no\""; if ($default_jump_around_delete_on_deactivate == "no") { echo " selected=\"selected\""; } echo ">No</option>
 		</select>
-
 		
 		</label><br />
-		
 
 		<input type=\"submit\" name=\"submit\" value=\"Save\" />
 		</form>";
 	}
+
 	
-// JA-003
-// The options page
-// Display the information on the page that was created.
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	function jump_around_page_content() { 
 		echo "	
 				<div id=\"ja\">
@@ -462,124 +454,135 @@
 				</blockquote>
 				</div>";
 	}
+
 	
 	
-// JA-004
-// Output appropriate script in footer
+	
+	
+	
+	
+	
+	
+	
+	function Jump_Around_footer_script(){
+		if (is_archive() || is_home() || is_search() ) { 
+			
+			$jump_around_0_sc = ( get_option("jump_around_0") );
+			$jump_around_1_sc = ( get_option("jump_around_1") );
+			$jump_around_2_sc = ( get_option("jump_around_2") );
+			$jump_around_3_sc = ( get_option("jump_around_3") );
+			$jump_around_4_sc = ( get_option("jump_around_4") );
+			$jump_around_5_sc = ( get_option("jump_around_5") );
+			$jump_around_6_sc = ( get_option("jump_around_6") );
+			$jump_around_7_sc = ( get_option("jump_around_7") );
+			$jump_around_8_sc = ( get_option("jump_around_8") );
+			
+			echo "
+			<script type=\"text/javascript\">
+			jQuery( document ).ready( function($) {
 
-function Jump_Around_footer_script(){
-if (is_archive() || is_home() || is_search()) { 
-$jump_around_0_sc = ( get_option("jump_around_0") );
-$jump_around_1_sc = ( get_option("jump_around_1") );
-$jump_around_2_sc = ( get_option("jump_around_2") );
-$jump_around_3_sc = ( get_option("jump_around_3") );
-$jump_around_4_sc = ( get_option("jump_around_4") );
-$jump_around_5_sc = ( get_option("jump_around_5") );
-$jump_around_6_sc = ( get_option("jump_around_6") );
-$jump_around_7_sc = ( get_option("jump_around_7") );
-$jump_around_8_sc = ( get_option("jump_around_8") );
-echo "
-<script type=\"text/javascript\">
-jQuery( document ).ready( function($) {
-var hash = window.location.hash.substr(1);
-if(hash != false && hash != 'undefined') {
-    \$('#'+hash+'').addClass('current');
-	\$(document).keydown(function(e){
-    switch(e.which) {
-        case ",$jump_around_4_sc,":
-            var \$current = \$('",$jump_around_0_sc,".current'),
-            \$prev_embed = \$current.prev();
-            \$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
-            \$current.removeClass('current');
-            \$prev_embed.addClass('current');
-			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
-			e.preventDefault();
-            return;
-        break;
-		case ",$jump_around_6_sc,": 
-            var \$current = \$('",$jump_around_0_sc,".current'),
-            \$next_embed = \$current.next('",$jump_around_0_sc,"');
-            \$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
-            \$current.removeClass('current');
-            \$next_embed.addClass('current');
-			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
-			e.preventDefault();
-            return;
-        break;
-		case ",$jump_around_5_sc,": 
-                if(jQuery('.current ",$jump_around_1_sc,"').attr('href'))
-                document.location.href=jQuery('.current ",$jump_around_1_sc,"').attr('href');
-				e.preventDefault();
-				return;
-				break;
-        default: return; 
-    }
-    
-});
-}else{
-\$('",$jump_around_0_sc,":eq(0)').addClass('current');
-\$(document).keydown(function(e){
-    switch(e.which) {
-        case ",$jump_around_4_sc,": 
-            var \$current = \$('",$jump_around_0_sc,".current'),
-            \$prev_embed = \$current.prev();
-            \$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
-            \$current.removeClass('current');
-            \$prev_embed.addClass('current');
-			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
-			e.preventDefault();
-            return;
-        break;
-		case ",$jump_around_6_sc,": 
-            var \$current = \$('",$jump_around_0_sc,".current'),
-            \$next_embed = \$current.next('",$jump_around_0_sc,"');
-            \$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
-            \$current.removeClass('current');
-            \$next_embed.addClass('current');
-			window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
-			e.preventDefault();
-            return;
-        break;
-		case ",$jump_around_5_sc,": 
-                if(jQuery('.current ",$jump_around_1_sc,"').attr('href'))
-                document.location.href=jQuery('.current ",$jump_around_1_sc,"').attr('href');
-				e.preventDefault();
-				return;
-				break;
-	}
-    
-});
-}
+			\$('input,textarea').keydown( function(e) {
+				e.stopPropagation();
+			});
 
-if (\$('",$jump_around_2_sc,"').is('*')) {
-\$(document).keydown(function(e){
-    switch(e.which) {
-        case ",$jump_around_7_sc,": 
-			document.location.href=jQuery('",$jump_around_2_sc,"').attr('href');
-			e.preventDefault();
-            return;
-			break;
-    }
-    
-});
-}
+			var hash = window.location.hash.substr(1);
+			if(hash != false && hash != 'undefined') {
+				\$('#'+hash+'').addClass('current');
+				\$(document).keydown(function(e){
+				switch(e.which) {
+					case ",$jump_around_4_sc,":
+						var \$current = \$('",$jump_around_0_sc,".current'),
+						\$prev_embed = \$current.prev();
+						\$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
+						\$current.removeClass('current');
+						\$prev_embed.addClass('current');
+						window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
+						e.preventDefault();
+						return;
+					break;
+					case ",$jump_around_6_sc,": 
+						var \$current = \$('",$jump_around_0_sc,".current'),
+						\$next_embed = \$current.next('",$jump_around_0_sc,"');
+						\$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
+						\$current.removeClass('current');
+						\$next_embed.addClass('current');
+						window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
+						e.preventDefault();
+						return;
+					break;
+					case ",$jump_around_5_sc,": 
+							if(jQuery('.current ",$jump_around_1_sc,"').attr('href'))
+							document.location.href=jQuery('.current ",$jump_around_1_sc,"').attr('href');
+							e.preventDefault();
+							return;
+							break;
+					default: return; 
+				}
+				
+			});
+			}else{
+			\$('",$jump_around_0_sc,":eq(0)').addClass('current');
+			\$(document).keydown(function(e){
+				switch(e.which) {
+					case ",$jump_around_4_sc,": 
+						var \$current = \$('",$jump_around_0_sc,".current'),
+						\$prev_embed = \$current.prev();
+						\$('html, body').animate({scrollTop:\$prev_embed.offset().top - 100}, 500);
+						\$current.removeClass('current');
+						\$prev_embed.addClass('current');
+						window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
+						e.preventDefault();
+						return;
+					break;
+					case ",$jump_around_6_sc,": 
+						var \$current = \$('",$jump_around_0_sc,".current'),
+						\$next_embed = \$current.next('",$jump_around_0_sc,"');
+						\$('html, body').animate({scrollTop:\$next_embed.offset().top - 100}, 500);
+						\$current.removeClass('current');
+						\$next_embed.addClass('current');
+						window.location.hash = \$('",$jump_around_0_sc,".current').attr('id');
+						e.preventDefault();
+						return;
+					break;
+					case ",$jump_around_5_sc,": 
+							if(jQuery('.current ",$jump_around_1_sc,"').attr('href'))
+							document.location.href=jQuery('.current ",$jump_around_1_sc,"').attr('href');
+							e.preventDefault();
+							return;
+							break;
+				}
+				
+			});
+			}
 
-if (\$('",$jump_around_3_sc,"').is('*')) {
-\$(document).keydown(function(e){
-    switch(e.which) {
-		case ",$jump_around_8_sc,": 
-			document.location.href=jQuery('",$jump_around_3_sc,"').attr('href');
-			e.preventDefault();
-            return;
-			break;
-    }
-    
-});
-}
+			if (\$('",$jump_around_2_sc,"').is('*')) {
+			\$(document).keydown(function(e){
+				switch(e.which) {
+					case ",$jump_around_7_sc,": 
+						document.location.href=jQuery('",$jump_around_2_sc,"').attr('href');
+						e.preventDefault();
+						return;
+						break;
+				}
+				
+			});
+			}
 
-});
-</script>
-";
-}
-} 
+			if (\$('",$jump_around_3_sc,"').is('*')) {
+			\$(document).keydown(function(e){
+				switch(e.which) {
+					case ",$jump_around_8_sc,": 
+						document.location.href=jQuery('",$jump_around_3_sc,"').attr('href');
+						e.preventDefault();
+						return;
+						break;
+				}
+				
+			});
+			}
+			});
+			</script>
+			";
+		}
+	} 
 ?>
