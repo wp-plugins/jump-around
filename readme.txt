@@ -1,5 +1,5 @@
 === Jump Around ===
-Contributors: Boyevul
+Contributors: Matthew Trevino
 Tags: a,s,d,z,x,cusotmize,navigating,navigation by key,keyboard,navi,quick,easy,useful
 Requires at least: 3.3
 Tested up to: 3.5.1
